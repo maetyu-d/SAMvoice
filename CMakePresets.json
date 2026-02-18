@@ -1,0 +1,58 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 22,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "macos-debug",
+      "displayName": "macOS Debug",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build-macos",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "JUCE_DIR": "${sourceDir}/JUCE"
+      }
+    },
+    {
+      "name": "windows-vs2022-debug",
+      "displayName": "Windows VS2022 Debug",
+      "generator": "Visual Studio 17 2022",
+      "architecture": {
+        "value": "x64",
+        "strategy": "set"
+      },
+      "binaryDir": "${sourceDir}/build-win",
+      "cacheVariables": {
+        "JUCE_DIR": "${sourceDir}/JUCE"
+      }
+    },
+    {
+      "name": "windows-vs2022-release",
+      "displayName": "Windows VS2022 Release",
+      "inherits": ["windows-vs2022-debug"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "JUCE_DIR": "${sourceDir}/JUCE"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "macos-debug",
+      "configurePreset": "macos-debug"
+    },
+    {
+      "name": "windows-debug",
+      "configurePreset": "windows-vs2022-debug",
+      "configuration": "Debug"
+    },
+    {
+      "name": "windows-release",
+      "configurePreset": "windows-vs2022-release",
+      "configuration": "Release"
+    }
+  ]
+}
