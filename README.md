@@ -2,4 +2,6 @@ The SAM-style Voice Synthesizer is based on the original SAM Software Automatic 
 
 VST3 and AU builds, via JUCE, are provided in the repo.
 
+Use it as you like, under the usual conditions of the [UNLICENSE](https://en.wikipedia.org/wiki/Unlicense).
+
 
