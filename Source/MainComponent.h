@@ -16,6 +16,26 @@ public:
         return voice.getStatusText();
     }
 
+    void setRealtimeControls (const SpeakNSpellVoice::RealtimeControls& controls)
+    {
+        voice.setRealtimeControls (controls);
+    }
+
+    void setCustomNodePath (const juce::String& path)
+    {
+        voice.setCustomNodePath (path);
+    }
+
+    void setLoopAtEnd (bool shouldLoop)
+    {
+        voice.setLoopAtEnd (shouldLoop);
+    }
+
+    juce::String getCustomNodePath() const
+    {
+        return voice.getCustomNodePath();
+    }
+
     void prepareToPlay (int, double sampleRate) override
     {
         voice.setSampleRate (sampleRate);
@@ -51,17 +71,31 @@ private:
     void timerCallback() override;
     void speakText (const juce::String& text);
     SpeakNSpellVoice::Parameters getCurrentParameters() const;
+    SpeakNSpellVoice::RealtimeControls getRealtimeControls() const;
+    void applyParametersToUi (const SpeakNSpellVoice::Parameters& p);
+    void applyRealtimeControlsToUi (const SpeakNSpellVoice::RealtimeControls& c);
+    void applyPreset (int presetIndex);
+    juce::String getNodePathInput() const;
     void appendUdpLine (const juce::String& text);
 
     juce::Label titleLabel;
     juce::Label statusLabel;
     juce::TextEditor textEditor;
     juce::TextButton speakButton { "Speak" };
+    juce::Label presetLabel;
+    juce::ComboBox presetBox;
     juce::ToggleButton singModeButton { "Sing Mode" };
     juce::ToggleButton phoneticModeButton { "Phonetic Input" };
     juce::ToggleButton backendModeButton { "Better SAM mode" };
+    juce::ToggleButton loopEndButton { "Loop At End" };
     juce::Label speedLabel, pitchLabel, mouthLabel, throatLabel;
     juce::Slider speedSlider, pitchSlider, mouthSlider, throatSlider;
+    juce::Label rtSpeedLabel, rtPitchLabel;
+    juce::Slider rtSpeedSlider, rtPitchSlider;
+    juce::Label formantLabel, gateLabel, crushLabel, loopLabel, tiltLabel, ringLabel, shiftLabel, jitterLabel, mutationLabel;
+    juce::Slider formantSlider, gateSlider, crushSlider, loopSlider, tiltSlider, ringSlider, shiftSlider, jitterSlider, mutationSlider;
+    juce::Label nodePathLabel;
+    juce::TextEditor nodePathEditor;
     juce::Label udpFeedLabel;
     juce::TextEditor udpFeedEditor;
     juce::String audioStatus;
